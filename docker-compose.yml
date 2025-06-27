@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo-db
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: appdb
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app-network
+
+  nest-api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: nest-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://admin:password@mongo:27017/appdb?authSource=admin
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+
+  react-client:
+    build:
+      context: .
+      dockerfile: apps/client/Dockerfile
+    container_name: react-client
+    restart: unless-stopped
+    ports:
+      - "4200:80"
+    environment: 
+      - REACT_APP_API_URL=http://localhost:3000
+    depends_on:
+      - nest-api
+    networks:
+      - app-network
+
+volumes:
+  mongo_data:
+
+networks:
+  app-network:
+    driver: bridge
