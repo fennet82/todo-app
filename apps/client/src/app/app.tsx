@@ -1,12 +1,20 @@
-// Uncomment this line to use CSS modules
-// import styles from './app.module.css';
-import NxWelcome from './nx-welcome';
+import { Navbar } from "../components/Navbar/Navbar";
+import { createTheme, MantineProvider } from '@mantine/core';
+
+// Import Mantine core styles
+import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
+import '@mantine/notifications/styles.css';
+import '@mantine/charts/styles.css';
+
+const theme = createTheme({
+});
 
 export function App() {
   return (
-    <div>
-      <NxWelcome title="client" />
-    </div>
+    <MantineProvider theme={theme}>
+        <Navbar></Navbar>
+    </MantineProvider>
   );
 }
 
