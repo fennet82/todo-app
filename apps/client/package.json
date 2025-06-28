@@ -17,6 +17,7 @@
     "@mantinex/mantine-logo": "^2.0.0",
     "@tabler/icons-react": "^3.34.0",
     "dayjs": "^1.11.13",
+    "react-router-dom": "^7.6.3",
     "recharts": "^2.15.4"
   },
   "devDependencies": {

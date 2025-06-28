@@ -1,0 +1,7 @@
+{
+  "css.experimental.customData": [".vscode/mantine.css-custom-data.json"],
+  "cssVariables.lookupFiles": [
+    "**/*.css",
+    "**/node_modules/@mantine/core/styles.css"
+  ]
+}
